@@ -15,7 +15,7 @@ static const char col_gray5[]       = "#444444";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_gray5, col_gray5 },
+	[SchemeSel]  = { col_gray4, col_gray5, col_gray2 },
 };
 
 /* tagging */
@@ -39,9 +39,9 @@ static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen win
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "[]=",      tile },    /* first entry is default */
+	{ "+",      tile },    /* first entry is default */
 	{ "><>",      NULL },    /* no layout function means floating behavior */
-	{ "[M]",      monocle },
+	{ "-",      monocle },
 };
 
 /* key definitions */
@@ -73,6 +73,7 @@ static Key keys[] = {
 	TAGKEYS(XK_9, 8)
 	{ MODKEY | ControlMask, XK_Escape, quit, {0}}, /* s-C-Esc to quit */
 	{ MODKEY | ControlMask, XK_w, killclient, {0}}, /* s-C-w to close window */
+	{ MODKEY | ControlMask, XK_b, togglebar, {0}}, /* toggle bar */
 	{ MODKEY, XK_n, focusstack, {.i = +1 }}, /* focus next window with s-n */
 	{ MODKEY, XK_p, focusstack, {.i = -1 }}, /* focus prev window with s-p */
 	{ MODKEY | ShiftMask, XK_f, setmfact, {.f = +0.025}}, /* enlarge master with s-S-f */
@@ -80,6 +81,8 @@ static Key keys[] = {
 	{ MODKEY | ShiftMask, XK_Tab, zoom, {0}}, /* flip selected node and master */
 	{ MODKEY | ShiftMask, XK_bracketleft, incnmaster, {.i = +1}}, /* promote to master level */
 	{ MODKEY | ShiftMask, XK_bracketright, incnmaster, {.i = -1}}, /* demote to slave level */
+	{ MODKEY | ControlMask, XK_equal, setlayout, {.v = &layouts[0]}}, /* tiling */
+	{ MODKEY | ControlMask, XK_minus, setlayout, {.v = &layouts[2]}}, /* monocle */
 
 	{ MODKEY, XK_Return, spawn, {.v = termcmd }},
 	{ MODKEY, XK_space, spawn, {.v = dmenucmd}},
